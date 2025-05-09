@@ -1,91 +1,281 @@
-/* RESET BASE */
-* {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+/* styles.css */
+
+/* Variabili di colore per il tema chiaro (impostazione predefinita) */
+:root {
+                --primary-color: #2196f3;
+                --secondary-color: #03a9f4;
+                --accent-color: #ffc107;
+                --text-color-primary: #333;
+                --text-color-secondary: #777;
+                --bg-color-primary: #f4f4f4;
+                --bg-color-secondary: #fff;
+                --border-color: #ddd;
+                --shadow-color: rgba(0, 0, 0, 0.1);
               }
               
+              /* Variabili di colore per il tema scuro */
+              [data-theme="dark"] {
+                --primary-color: #64b5f6;
+                --secondary-color: #4fc3f7;
+                --accent-color: #ffeb3b;
+                --text-color-primary: #eee;
+                --text-color-secondary: #ccc;
+                --bg-color-primary: #303030;
+                --bg-color-secondary: #424242;
+                --border-color: #555;
+                --shadow-color: rgba(255, 255, 255, 0.1);
+              }
+              
+              /* Stili di base */
               body {
-                font-family: 'Segoe UI', system-ui, sans-serif;
+                font-family: sans-serif;
+                margin: 0;
+                background-color: var(--bg-color-primary);
+                color: var(--text-color-primary);
                 line-height: 1.6;
-                background: #f0f9ff;
-                min-height: 100vh;
-                padding: 2rem;
               }
               
-              /* LAYOUT */
               .container {
-                max-width: 800px;
-                margin: 0 auto;
-                background: white;
-                border-radius: 1rem;
-                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-                padding: 2rem;
+                max-width: 960px;
+                margin: 20px auto;
+                padding: 20px;
+              }
+              
+              /* Barra di navigazione */
+              .app-bar {
+                background-color: var(--bg-color-secondary);
+                box-shadow: 0 2px 4px var(--shadow-color);
+                padding: 15px 0;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+              }
+              
+              .app-bar .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              
+              .logo {
+                color: var(--primary-color);
+                font-size: 1.5rem;
+                margin: 0;
+              }
+              
+              .theme-toggle {
+                background: none;
+                border: none;
+                color: var(--text-color-secondary);
+                cursor: pointer;
+                font-size: 1.2rem;
+                padding: 8px;
+                transition: color 0.3s ease-in-out;
+              }
+              
+              .theme-toggle:hover {
+                color: var(--accent-color);
+              }
+              
+              /* Form meteo */
+              .weather-form {
+                background-color: var(--bg-color-secondary);
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px var(--shadow-color);
+                margin-bottom: 20px;
               }
               
               .input-group {
                 display: flex;
-                gap: 1rem;
-                margin-bottom: 2rem;
-                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 15px;
               }
               
-              .weather-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
-                padding: 1.5rem;
-                background: #e6f4ff;
-                border-radius: 0.8rem;
+              .input-wrapper {
+                flex: 1;
               }
               
-              /* COMPONENTI */
+              .input-label {
+                display: block;
+                margin-bottom: 5px;
+                color: var(--text-color-primary);
+                font-size: 0.9rem;
+              }
+              
               .input-field {
-                flex: 1 1 200px;
-                padding: 0.8rem;
-                border: 1px solid #cce6ff;
-                border-radius: 0.5rem;
+                width: 100%;
+                padding: 10px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
                 font-size: 1rem;
+                color: var(--text-color-primary);
+                background-color: var(--bg-color-primary);
+                box-sizing: border-box;
+              }
+              
+              .input-field:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+              }
+              
+              .input-hint {
+                display: block;
+                font-size: 0.8rem;
+                color: var(--text-color-secondary);
+                margin-top: 3px;
+              }
+              
+              .action-buttons {
+                display: flex;
+                gap: 10px;
               }
               
               .btn {
-                padding: 0.8rem 1.5rem;
+                padding: 10px 15px;
                 border: none;
-                border-radius: 0.5rem;
-                background: #2196f3;
-                color: white;
+                border-radius: 4px;
                 cursor: pointer;
-                transition: background 0.3s ease;
+                font-size: 1rem;
+                transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+                display: flex;
+                align-items: center;
+                gap: 5px;
               }
               
-              .btn:hover {
-                background: #1976d2;
+              .btn--primary {
+                background-color: var(--primary-color);
+                color: var(--bg-color-secondary);
+              }
+              
+              .btn--primary:hover {
+                background-color: var(--secondary-color);
               }
               
               .btn--secondary {
-                background: #4caf50;
+                background-color: var(--bg-color-secondary);
+                color: var(--primary-color);
+                border: 1px solid var(--primary-color);
               }
               
-              .weather-icon {
-                font-size: 2.5rem;
-                color: #2196f3;
-                margin-bottom: 1rem;
+              .btn--secondary:hover {
+                background-color: var(--primary-color);
+                color: var(--bg-color-secondary);
               }
               
-              .weather-item {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
+              /* Sezione risultati meteo (griglia) */
+              .weather-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
               }
               
-              .weather-label {
-                font-size: 0.9rem;
-                color: #666;
+              /* Skeleton Loader */
+              .skeleton-loader {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
               }
               
-              .weather-value {
+              .skeleton-card {
+                background-color: var(--border-color);
+                border-radius: 8px;
+                height: 150px;
+                animation: pulse 1.5s infinite ease-in-out;
+              }
+              
+              @keyframes pulse {
+                0% { opacity: 0.7; }
+                50% { opacity: 0.3; }
+                100% { opacity: 0.7; }
+              }
+              
+              /* Widget storico ricerche */
+              .search-history {
+                background-color: var(--bg-color-secondary);
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px var(--shadow-color);
+                margin-top: 20px;
+              }
+              
+              .history-title {
+                color: var(--text-color-primary);
                 font-size: 1.2rem;
-                font-weight: 600;
-                color: #333;
+                margin-top: 0;
+                margin-bottom: 10px;
+                border-bottom: 2px solid var(--accent-color);
+                padding-bottom: 5px;
               }
               
+              .history-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              }
+              
+              .history-list li {
+                padding: 8px 0;
+                border-bottom: 1px solid var(--border-color);
+              }
+              
+              .history-list li:last-child {
+                border-bottom: none;
+              }
+              
+              .history-list button {
+                background: none;
+                border: none;
+                color: var(--primary-color);
+                cursor: pointer;
+                font-size: 1rem;
+                text-align: left;
+                padding: 0;
+                transition: color 0.3s ease-in-out;
+              }
+              
+              .history-list button:hover {
+                color: var(--secondary-color);
+              }
+              
+              /* Notifiche Toast */
+              .toast {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 100;
+                transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+              }
+              
+              .toast.show {
+                opacity: 1;
+                visibility: visible;
+                transition-delay: 0s;
+              }
+              
+              /* Responsive design */
+              @media (max-width: 600px) {
+                .container {
+                  padding: 15px;
+                }
+              
+                .input-group {
+                  flex-direction: column;
+                }
+              
+                .action-buttons {
+                  flex-direction: column;
+                }
+              
+                .btn {
+                  width: 100%;
+                }
+              }
