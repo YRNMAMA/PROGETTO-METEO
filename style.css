@@ -1,0 +1,91 @@
+/* RESET BASE */
+* {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              
+              body {
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                line-height: 1.6;
+                background: #f0f9ff;
+                min-height: 100vh;
+                padding: 2rem;
+              }
+              
+              /* LAYOUT */
+              .container {
+                max-width: 800px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 1rem;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+              }
+              
+              .input-group {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+              }
+              
+              .weather-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+                padding: 1.5rem;
+                background: #e6f4ff;
+                border-radius: 0.8rem;
+              }
+              
+              /* COMPONENTI */
+              .input-field {
+                flex: 1 1 200px;
+                padding: 0.8rem;
+                border: 1px solid #cce6ff;
+                border-radius: 0.5rem;
+                font-size: 1rem;
+              }
+              
+              .btn {
+                padding: 0.8rem 1.5rem;
+                border: none;
+                border-radius: 0.5rem;
+                background: #2196f3;
+                color: white;
+                cursor: pointer;
+                transition: background 0.3s ease;
+              }
+              
+              .btn:hover {
+                background: #1976d2;
+              }
+              
+              .btn--secondary {
+                background: #4caf50;
+              }
+              
+              .weather-icon {
+                font-size: 2.5rem;
+                color: #2196f3;
+                margin-bottom: 1rem;
+              }
+              
+              .weather-item {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+              }
+              
+              .weather-label {
+                font-size: 0.9rem;
+                color: #666;
+              }
+              
+              .weather-value {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #333;
+              }
+              
