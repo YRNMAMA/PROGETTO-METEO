@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="it" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Applicazione meteo avanzata con previsioni in tempo reale">
   <meta name="theme-color" content="#2196f3">
   <link rel="manifest" href="/manifest.webmanifest">
-  <title>Meteo App Pro</title>
-
-  <!-- Font Awesome con integrazione Tree Shaking -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-...">
-  
-  <!-- CSS moderno con variabili -->
+  <link rel="preconnect" href="https://api.weatherapi.com">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Preconnessione a API esterne -->
-  <link rel="preconnect" href="https://api.weatherapi.com">
+  <!-- Font Awesome CDN (con fallback) -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+    integrity="sha512-pap+nz0...your-full-sha" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"
+  >
+
+  <title>Meteo App Pro</title>
 </head>
 <body>
-  <!-- Navbar con toggle tema -->
+  <!-- Navbar -->
   <nav class="app-bar">
     <div class="container">
       <h1 class="logo">🌤️ Meteo Pro</h1>
@@ -29,22 +32,19 @@
   </nav>
 
   <main class="container">
-    <!-- Form accessibile -->
-    <form id="weatherForm" class="weather-form" @submit.prevent="handleSubmit">
+    <!-- Form -->
+    <form id="weatherForm" class="weather-form" novalidate>
       <div class="input-group">
         <div class="input-wrapper">
           <label for="latitude" class="input-label">Latitudine</label>
           <input 
             type="number" 
             id="latitude" 
-            class="input-field"
-            placeholder="Es. 45.4642"
-            step="any"
-            min="-90"
-            max="90"
-            required
-            aria-describedby="latHelp"
-          >
+            class="input-field" 
+            placeholder="Es. 45.4642" 
+            step="any" min="-90" max="90" 
+            required 
+            aria-describedby="latHelp">
           <small id="latHelp" class="input-hint">Valore tra -90 e 90</small>
         </div>
 
@@ -53,14 +53,11 @@
           <input 
             type="number" 
             id="longitude" 
-            class="input-field"
-            placeholder="Es. 9.1900"
-            step="any"
-            min="-180"
-            max="180"
-            required
-            aria-describedby="lonHelp"
-          >
+            class="input-field" 
+            placeholder="Es. 9.1900" 
+            step="any" min="-180" max="180" 
+            required 
+            aria-describedby="lonHelp">
           <small id="lonHelp" class="input-hint">Valore tra -180 e 180</small>
         </div>
       </div>
@@ -75,7 +72,7 @@
       </div>
     </form>
 
-    <!-- Sezione risultati con skeleton loading -->
+    <!-- Risultati Meteo -->
     <section id="weatherInfo" class="weather-grid" aria-live="polite">
       <div class="skeleton-loader" style="display: none;">
         <div class="skeleton-card"></div>
@@ -84,28 +81,28 @@
       </div>
     </section>
 
-    <!-- Widget storico ricerche -->
+    <!-- Storico -->
     <aside class="search-history">
       <h2 class="history-title">Ricerche recenti</h2>
       <ul id="historyList" class="history-list"></ul>
     </aside>
   </main>
 
-  <!-- Notifiche Toast -->
+  <!-- Notifiche -->
   <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
 
-  <!-- Service Worker e PWA -->
+  <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-          .then(registration => console.log('SW registrato'))
-          .catch(err => console.log('SW errore:', err));
+          .then(() => console.log('Service Worker registrato'))
+          .catch(err => console.error('Errore Service Worker:', err));
       });
     }
   </script>
 
-  <!-- App JS modulare -->
+  <!-- Script principale -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
