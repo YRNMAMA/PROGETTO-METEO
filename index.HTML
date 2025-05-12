@@ -3,106 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Applicazione meteo avanzata con previsioni in tempo reale">
+  <meta name="description" content="App meteo semplice e veloce">
   <meta name="theme-color" content="#2196f3">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="preconnect" href="https://api.weatherapi.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Font Awesome CDN (con fallback) -->
-  <link 
-    rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-    integrity="sha512-pap+nz0...your-full-sha" 
-    crossorigin="anonymous" 
-    referrerpolicy="no-referrer"
-  >
-
-  <title>Meteo App Pro</title>
+  <title>Meteo Semplice - Previsioni Metereologiche in Tempo Reale</title>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="app-bar">
-    <div class="container">
-      <h1 class="logo">🌤️ Meteo Pro</h1>
-      <button class="theme-toggle" aria-label="Cambia tema">
+  <!-- Navbar avanzata -->
+  <nav class="app-bar shadow-md">
+    <div class="container flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-sun text-xl text-amber-400"></i>
+        <h1 class="logo font-semibold text-xl">Meteo Semplice</h1>
+      </div>
+      <button class="theme-toggle btn--icon" aria-label="Cambia tema">
         <i class="fas fa-moon"></i>
       </button>
     </div>
   </nav>
 
-  <main class="container">
-    <!-- Form -->
-    <form id="weatherForm" class="weather-form" novalidate>
-      <div class="input-group">
-        <div class="input-wrapper">
-          <label for="latitude" class="input-label">Latitudine</label>
-          <input 
-            type="number" 
-            id="latitude" 
-            class="input-field" 
-            placeholder="Es. 45.4642" 
-            step="any" min="-90" max="90" 
-            required 
-            aria-describedby="latHelp">
-          <small id="latHelp" class="input-hint">Valore tra -90 e 90</small>
+  <main class="container py-8">
+    <!-- Form migliorato -->
+    <div class="card shadow-sm">
+      <form id="weatherForm" class="weather-form" novalidate>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="input-group">
+            <label class="input-label">Latitudine</label>
+            <div class="input-wrapper">
+              <i class="fas fa-globe input-icon"></i>
+              <input 
+                type="number" 
+                id="latitude" 
+                class="input-field"
+                placeholder="Es. 45.4642" 
+                step="any" 
+                min="-90" 
+                max="90" 
+                required>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Longitudine</label>
+            <div class="input-wrapper">
+              <i class="fas fa-location-dot input-icon"></i>
+              <input 
+                type="number" 
+                id="longitude" 
+                class="input-field"
+                placeholder="Es. 9.1900" 
+                step="any" 
+                min="-180" 
+                max="180" 
+                required>
+            </div>
+          </div>
         </div>
 
-        <div class="input-wrapper">
-          <label for="longitude" class="input-label">Longitudine</label>
-          <input 
-            type="number" 
-            id="longitude" 
-            class="input-field" 
-            placeholder="Es. 9.1900" 
-            step="any" min="-180" max="180" 
-            required 
-            aria-describedby="lonHelp">
-          <small id="lonHelp" class="input-hint">Valore tra -180 e 180</small>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button type="submit" class="btn btn--primary">
+            <i class="fas fa-search mr-2"></i>Cerca meteo
+          </button>
+          <button type="button" class="btn btn--secondary" onclick="getLocation()">
+            <i class="fas fa-location-arrow mr-2"></i>Posizione attuale
+          </button>
         </div>
+      </form>
+    </div>
+
+    <!-- Sezione meteo migliorata -->
+    <section id="weatherInfo" class="weather-grid mt-8" aria-live="polite">
+      <!-- Skeleton loader migliorato -->
+      <div class="skeleton-loader grid grid-cols-1 md:grid-cols-3 gap-4" style="display: none;">
+        <div class="skeleton-card h-32"></div>
+        <div class="skeleton-card h-32"></div>
+        <div class="skeleton-card h-32"></div>
       </div>
 
-      <div class="action-buttons">
-        <button type="submit" class="btn btn--primary">
-          <i class="fas fa-search"></i> Cerca
-        </button>
-        <button type="button" class="btn btn--secondary" onclick="getLocation()">
-          <i class="fas fa-location-dot"></i> Posizione attuale
-        </button>
-      </div>
-    </form>
-
-    <!-- Risultati Meteo -->
-    <section id="weatherInfo" class="weather-grid" aria-live="polite">
-      <div class="skeleton-loader" style="display: none;">
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
+      <!-- Template risultato meteo -->
+      <div class="weather-card card">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold"><span class="temperature">--</span>°C</h2>
+            <p class="text-gray-600 weather-condition">--</p>
+          </div>
+          <i class="fas fa-sun text-4xl text-amber-400 weather-icon"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4 weather-details">
+          <div class="detail-item">
+            <i class="fas fa-wind"></i>
+            Vento: <span class="wind-speed">--</span> km/h
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-droplet"></i>
+            Umidità: <span class="humidity">--</span>%
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Storico -->
-    <aside class="search-history">
-      <h2 class="history-title">Ricerche recenti</h2>
-      <ul id="historyList" class="history-list"></ul>
-    </aside>
+    <!-- Storico ricerche migliorato -->
+    <section class="search-history mt-8">
+      <div class="card">
+        <h2 class="section-title"><i class="fas fa-clock-rotate-left mr-2"></i>Ricerche recenti</h2>
+        <div id="historyList" class="flex flex-wrap gap-2 history-list">
+          <!-- Esempio elemento storico -->
+          <button class="history-item chip">
+            <span class="coord">45.4642, 9.1900</span>
+            <i class="fas fa-times ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Notifiche -->
+  <!-- Notifiche migliorate -->
   <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(() => console.log('Service Worker registrato'))
-          .catch(err => console.error('Errore Service Worker:', err));
-      });
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker registrato'))
+        .catch(err => console.error('Errore SW:', err));
     }
   </script>
 
-  <!-- Script principale -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
