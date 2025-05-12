@@ -6,12 +6,12 @@
   <meta name="description" content="App meteo semplice e veloce">
   <meta name="theme-color" content="#2196f3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
   <title>Meteo Semplice - Previsioni Metereologiche in Tempo Reale</title>
 </head>
 <body>
-  <!-- Navbar avanzata -->
-  <nav class="app-bar shadow-md">
+  <!-- Navbar migliorata -->
+  <nav class="app-bar shadow-md sticky top-0 bg-white z-50">
     <div class="container flex justify-between items-center">
       <div class="flex items-center gap-3">
         <i class="fas fa-sun text-xl text-amber-400"></i>
@@ -36,7 +36,7 @@
                 type="number" 
                 id="latitude" 
                 class="input-field"
-                placeholder="Es. 45.4642" 
+                placeholder="Inserisci la latitudine (Es. 45.4642)" 
                 step="any" 
                 min="-90" 
                 max="90" 
@@ -52,7 +52,7 @@
                 type="number" 
                 id="longitude" 
                 class="input-field"
-                placeholder="Es. 9.1900" 
+                placeholder="Inserisci la longitudine (Es. 9.1900)" 
                 step="any" 
                 min="-180" 
                 max="180" 
@@ -74,14 +74,7 @@
 
     <!-- Sezione meteo migliorata -->
     <section id="weatherInfo" class="weather-grid mt-8" aria-live="polite">
-      <!-- Skeleton loader migliorato -->
-      <div class="skeleton-loader grid grid-cols-1 md:grid-cols-3 gap-4" style="display: none;">
-        <div class="skeleton-card h-32"></div>
-        <div class="skeleton-card h-32"></div>
-        <div class="skeleton-card h-32"></div>
-      </div>
-
-      <!-- Template risultato meteo -->
+      <h2 class="section-title text-center text-2xl font-bold mb-4">Risultati Meteo</h2>
       <div class="weather-card card">
         <div class="flex items-center justify-between">
           <div>
@@ -111,12 +104,19 @@
           <!-- Esempio elemento storico -->
           <button class="history-item chip">
             <span class="coord">45.4642, 9.1900</span>
-            <i class="fas fa-times ml-2"></i>
+            <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 py-4 mt-8">
+    <div class="container text-center">
+      <p class="text-sm text-gray-600">© 2025 Meteo Semplice. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
 
   <!-- Notifiche migliorate -->
   <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
