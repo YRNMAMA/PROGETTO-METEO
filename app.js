@@ -1,7 +1,5 @@
-// app.js
-
-const API_KEY = 'YOUR_WEATHERAPI_COM_API_KEY';
-const API_URL = 'https://api.weatherapi.com/v1/forecast.json';
+// Configurazione API Open-Meteo
+const API_URL = 'https://api.open-meteo.com/v1/forecast';
 
 // DOM Elements
 const weatherForm = document.getElementById('weatherForm');
@@ -38,48 +36,44 @@ const toggleLoading = (show) => {
   }
 };
 
-// Render Weather Info
-const renderWeatherInfo = (data) => {
+// Render Open-Meteo Data
+const renderOpenMeteoData = (data, lat, lon) => {
   toggleLoading(false);
-  const { location, current, forecast } = data;
+  const current = data.current;
 
   weatherInfoSection.innerHTML = `
     <div class="weather-card current-weather">
-      <h3>${location.name}, ${location.country}</h3>
+      <h3>Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}</h3>
       <div class="weather-details">
-        <img src="${current.condition.icon}" alt="${current.condition.text}">
-        <p class="temperature">${current.temp_c}°C</p>
-        <p class="condition">${current.condition.text}</p>
+        <p class="temperature">${current.temperature_2m}°C</p>
+        <p class="condition">Codice Meteo: ${current.weather_code}</p>
       </div>
       <div class="additional-info">
-        <p>Vento: ${current.wind_kph} km/h</p>
-        <p>Umidità: ${current.humidity}%</p>
-      </div>
-    </div>
-    <div class="forecast">
-      <h3>Previsioni per i prossimi 3 giorni</h3>
-      <div class="forecast-cards">
-        ${forecast.forecastday.map(day => `
-          <div class="weather-card forecast-card">
-            <p class="date">${new Date(day.date).toLocaleDateString()}</p>
-            <img src="${day.day.condition.icon}" alt="${day.day.condition.text}">
-            <p class="temperature">Max: ${day.day.maxtemp_c}°C / Min: ${day.day.mintemp_c}°C</p>
-            <p class="condition">${day.day.condition.text}</p>
-          </div>`).join('')}
+        <p>Vento: ${current.wind_speed_10m} km/h</p>
+        <p>Umidità: ${current.relative_humidity_2m}%</p>
+        <p>Pioggia: ${current.rain} mm</p>
+        <p>Nuvole: ${current.cloud_cover}%</p>
       </div>
     </div>
   `;
 };
 
-// API Request
+// Fetch dati da Open-Meteo
 const fetchWeatherData = async (lat, lon) => {
   toggleLoading(true);
+  const params = new URLSearchParams({
+    latitude: lat,
+    longitude: lon,
+    current: 'temperature_2m,relative_humidity_2m,precipitation,rain,cloud_cover,wind_speed_10m,weather_code',
+    timezone: 'auto'
+  });
+
   try {
-    const response = await fetch(`${API_URL}?key=${API_KEY}&q=${lat},${lon}&days=3&lang=it`);
+    const response = await fetch(`${API_URL}?${params}`);
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error?.message || 'Errore nel recupero dei dati meteo');
-    renderWeatherInfo(data);
-    saveSearch(lat, lon, `${data.location.name}, ${data.location.country}`);
+    if (!response.ok) throw new Error('Errore nel recupero dei dati meteo');
+    renderOpenMeteoData(data, lat, lon);
+    saveSearch(lat, lon, `${lat.toFixed(2)}, ${lon.toFixed(2)}`);
     loadSearchHistory();
   } catch (err) {
     toggleLoading(false);
