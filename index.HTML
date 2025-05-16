@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="App meteo semplice e veloce">
+  <meta name="description" content="App meteo semplice e veloce per ottenere previsioni meteo in tempo reale.">
   <meta name="theme-color" content="#2196f3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  <title>Meteo Semplice - Previsioni Metereologiche in Tempo Reale</title>
+  <title>Meteo Semplice</title>
 </head>
 <body>
-  <!-- Navbar migliorata -->
+  <!-- Navbar -->
   <nav class="app-bar shadow-md sticky top-0 bg-white z-50">
     <div class="container flex justify-between items-center">
       <div class="flex items-center gap-3">
@@ -23,13 +23,15 @@
     </div>
   </nav>
 
+  <!-- Main Content -->
   <main class="container py-8">
-    <!-- Form migliorato -->
-    <div class="card shadow-sm">
+    <!-- Form di ricerca -->
+    <div class="card shadow-md">
       <form id="weatherForm" class="weather-form" novalidate>
+        <h2 class="section-title">Cerca il meteo</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div class="input-group">
-            <label class="input-label">Latitudine</label>
+            <label class="input-label" for="latitude">Latitudine</label>
             <div class="input-wrapper">
               <i class="fas fa-globe input-icon"></i>
               <input 
@@ -45,7 +47,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Longitudine</label>
+            <label class="input-label" for="longitude">Longitudine</label>
             <div class="input-wrapper">
               <i class="fas fa-location-dot input-icon"></i>
               <input 
@@ -72,41 +74,19 @@
       </form>
     </div>
 
-    <!-- Sezione meteo migliorata -->
+    <!-- Sezione meteo -->
     <section id="weatherInfo" class="weather-grid mt-8" aria-live="polite">
       <h2 class="section-title text-center text-2xl font-bold mb-4">Risultati Meteo</h2>
-      <div class="weather-card card">
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-2xl font-bold"><span class="temperature">--</span>°C</h2>
-            <p class="text-gray-600 weather-condition">--</p>
-          </div>
-          <i class="fas fa-sun text-4xl text-amber-400 weather-icon"></i>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mt-4 weather-details">
-          <div class="detail-item">
-            <i class="fas fa-wind"></i>
-            Vento: <span class="wind-speed">--</span> km/h
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-droplet"></i>
-            Umidità: <span class="humidity">--</span>%
-          </div>
-        </div>
-      </div>
+      <!-- I dati meteo verranno inseriti dinamicamente -->
     </section>
 
-    <!-- Storico ricerche migliorato -->
+    <!-- Storico ricerche -->
     <section class="search-history mt-8">
       <div class="card">
         <h2 class="section-title"><i class="fas fa-clock-rotate-left mr-2"></i>Ricerche recenti</h2>
-        <div id="historyList" class="flex flex-wrap gap-2 history-list">
-          <!-- Esempio elemento storico -->
-          <button class="history-item chip">
-            <span class="coord">45.4642, 9.1900</span>
-            <i class="fas fa-arrow-right ml-2"></i>
-          </button>
-        </div>
+        <ul id="historyList" class="flex flex-wrap gap-2 history-list">
+          <!-- Gli elementi dello storico verranno inseriti dinamicamente -->
+        </ul>
       </div>
     </section>
   </main>
@@ -114,22 +94,14 @@
   <!-- Footer -->
   <footer class="bg-gray-100 py-4 mt-8">
     <div class="container text-center">
-      <p class="text-sm text-gray-600">© 2025 Meteo Semplice. Tutti i diritti riservati a MAMADOU.</p>
+      <p class="text-sm text-gray-600">© 2025 Meteo Semplice. Tutti i diritti riservati.</p>
     </div>
   </footer>
 
-  <!-- Notifiche migliorate -->
+  <!-- Notifiche -->
   <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
 
-  <!-- Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('Service Worker registrato'))
-        .catch(err => console.error('Errore SW:', err));
-    }
-  </script>
-
-  <script type="module" src="app.js"></script>
+  <!-- Script -->
+  <script src="app.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 // Configurazione API Open-Meteo
 const API_URL = 'https://api.open-meteo.com/v1/forecast';
+//const API_URL http://ip-api.com/json/?fields=61439;
 
 // DOM Elements
 const weatherForm = document.getElementById('weatherForm');
