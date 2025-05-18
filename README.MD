@@ -23,7 +23,7 @@ Un'applicazione meteo moderna e responsive per ottenere previsioni meteorologich
 1. Clona il repository:
 ```bash
 git https://github.com/YRNMAMA/PROGETTO-METEO
-cd meteo-semplice
+cd Progetto meteo 
 ```
 
 2. Apri il file `index.html` nel tuo browser preferito.
